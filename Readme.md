@@ -68,5 +68,5 @@ assets/images: store images
 This site's index, about-us, and help pages are hard coded. 
 certain variables(that will affect SEO, Marking system) are also hard coded. To change, you have to chage manually(sorry for that)
 
-Please visit : [my site](onlinepgdexam.com)
+Please visit : [my site](https://onlinepgdexam.com)
 > Written with [StackEdit](https://stackedit.io/).
