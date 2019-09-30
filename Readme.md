@@ -65,6 +65,8 @@ public and assets/images are publicly accessible folder.
 assets/images: store images
 
 *please, create folder 'assets > images' & 'assets > fileData' under assets folder(you should create it yourself)*
+
+
 **Problems**
 This site's index, about-us, and help pages are hard coded. 
 certain variables(that will affect SEO, Marking system) are also hard coded. To change, you have to chage manually(sorry for that)
