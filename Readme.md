@@ -46,7 +46,7 @@ Mongodb section is self-explanatory.
     #SENDER_EMAIL=
     #DOMAIN=
     
-    Mongo data base related
+    #Mongo data base related
     #APP_MONGO_USER=
     #APP_MONGO_PASS=
     #MONGO_HOSTNAME=
