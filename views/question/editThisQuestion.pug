@@ -1,0 +1,9 @@
+extends ../includes/layout
+
+block header
+    include ../includes/nav
+block content
+    if qType == 'matrix'
+        include /qtype/editMatrix
+    if qType == 'sba'
+        include /qtype/editSba

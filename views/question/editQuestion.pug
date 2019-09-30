@@ -1,0 +1,16 @@
+extends ../includes/layout
+
+block header
+    include ../includes/nav
+block content
+    .row.justify-content-center
+        .col-6.my-2.border.border-light
+            .bg-info.p-2.my-2.text-white.text-center Choose The Question Category To be edited
+            form.p-2(action="/question/editQuestion/" method="get")
+                .form-group
+                    label Choose Category
+                    select.form-control(name="category")
+                        if category
+                            each val in category
+                                option(value=val._id) #{val.slug} 
+                button.btn.btn-primary.mt-3(type="submit") Submit 

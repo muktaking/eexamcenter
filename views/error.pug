@@ -1,0 +1,27 @@
+extends ./includes/layout
+
+block header
+    include ./includes/nav
+block content
+    .container
+        .row
+            .col.text-center
+                if err
+                    if err.statusCode == 401
+                        h2.display-2= err.statusCode
+                        h4.display-4= err.message
+                        p.lead
+                            a(href="/") Go to Home
+                        p.lead
+                            a(href="/login") Login   
+                    else
+                        h2.display-2= err.statusCode
+                        h4.display-4= err.message
+                        p.lead
+                            a(href="/") Go to Home
+                        p.lead
+                            a(href="/exam") Explore Conntent 
+                else    
+                    p.display-3 Something wrong, We are sorry for the inconvenience. 
+                    p.display-4 Please contact with Web Administrator.
+                    

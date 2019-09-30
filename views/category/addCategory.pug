@@ -1,0 +1,69 @@
+extends ../includes/layout
+
+block header
+    include ../includes/nav
+block content
+    .container
+        .row
+        .row.justify-content-center
+            .col-10.col-md-8.col-lg-6.my-2.border.border-light
+                .bg-info.text-white.text-center.lead.rounded-top.p-2.mb-2 Create a Category
+                if errorMessage
+                    .alert.alert-danger.rounded-0.mt-2.text-center(role="alert") #{errorMessage}
+
+                form.p-2.border.border-light(action="" method="post" enctype="multipart/form-data")
+                    .row
+                        .col
+                            .form-group
+                                label Choose The Category Name
+                                input.form-control(type="text" name="catName")
+                        .col
+                            .form-group
+                                label Choose The Parent Category
+                                select.form-control(name="parentCat")
+                                    option Top
+                                    if category
+                                        each val in category
+                                            option(value = val._id) #{val.slug}
+                    .row
+                        .col
+                            .form-group
+                                label Choose The Category Order(it will be userd in odering in exam section)
+                                input.form-control(type="text" name="order")
+                    .row
+                        .col
+                            .form-group    
+                                label.sr-only(for='catDescription') Detail
+                                textarea.form-control#catDescription.form-control(name="catDescribe" placeholder='Let describe the category')
+                            .custom-file.mb-2
+                                label.custom-file-label(for="image") Upload a Image: 
+                                input.custom-file-input#image(type="file" name="image")     
+
+                    input(type="hidden" name="_csrf" value = csrfToken )
+                    button.btn.btn-primary(type="submit") Submit
+
+                .mt-3
+                    .bg-info.text-white.text-center.lead.rounded-top.p-2 Edit Category
+                    .p-1.mt-2
+                        include ../includes/utils 
+                        - if (catHierarchy)
+                            each val,index in catHierarchy
+                                div.mb-2(data-toggle="collapse" href="#collapseChild"+index aria-expanded="false" aria-controls="collapseChild"+index)
+                                    p.bg-warning.text-white.py-2
+                                        i.ml-3.fa.fa-dot-circle
+                                        span.ml-2(style="font-size:20px;") #{val.name}
+                                        a.mr-2.text-white(href= "/category/editCategory/" + val._id)
+                                            i.ml-3.fa.fa-cog.fa-sm
+                                        a.text-white(href= "/category/deleteCategory/" + val._id)
+                                            i.ml-3.fa.fa-minus.fa-sm    
+                                    .collapse(id="collapseChild"+index)
+                                        - expandCat(val)
+
+                                                
+                //div
+                    if category
+                            each val in category
+                                if val.imageUrl
+                                    img(src=val.imageUrl, alt="", srcset="")
+                            
+                                            

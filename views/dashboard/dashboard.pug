@@ -1,0 +1,41 @@
+extends ../includes/layout
+block style
+    link(rel="stylesheet" type="text/css" href="https://uicdn.toast.com/tui-calendar/latest/tui-calendar.css")   
+block header
+    include ../includes/nav
+block content
+    .container.dashboard-wrapper
+        .row.my-4
+            .col-lg-3.border-right.left-content-wrapper.text-white.py-2
+                div.welcome-wrapper.text-center
+                    p.lead Welcome #{userName}
+                hr.mb-3            
+            .col-lg-9.middle-content-wrapper
+                div.mb-2
+                    h3.display-5.text-center Progress Chart
+                    hr.mb-3
+                    ul.list-group.list-group-flush
+                        li.py-1.list-group-item.d-flex.justify-content-between.align-items-center Average Score 
+                            span.badge.badge-primary.badge-pill= totalAvgScore + ' %' 
+                        li.py-1.list-group-item.d-flex.justify-content-between.align-items-center Total number of Exams Taken
+                            span.badge.badge-primary.badge-pill= examTaken
+                        li.py-1.list-group-item.d-flex.justify-content-between.align-items-center Highest Mark Obtained in
+                            span.badge.badge-primary.badge-pill= highestMark
+                        li.py-1.list-group-item.d-flex.justify-content-between.align-items-center Lowest Mark Obtained in
+                            span.badge.badge-primary.badge-pill= lowestMark
+                    canvas#myChart()
+                card.text-center
+                    .card-header 
+                        h4.display-5 Featured
+                    .card-body
+                        h6.card-title Special title treatment
+                        p.card-text With supporting text below as a natural lead-in to additional content
+                        a.btn.btn-primary( href="#") Go somewhere               
+            //.col-lg-3
+                #calendar(style="height: 400px;")
+block script
+    script(src="https://uicdn.toast.com/tui.code-snippet/latest/tui-code-snippet.js")
+    script(src="https://uicdn.toast.com/tui-calendar/latest/tui-calendar.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js")          
+
+        

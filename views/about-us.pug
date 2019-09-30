@@ -1,0 +1,26 @@
+extends ./includes/layout
+
+block header
+    include ./includes/nav
+block content
+    .container
+        .row.mt-3
+            .col-2
+            .col-8
+                if breadcrumbs
+                        nav(aria-label="breadcrumb")
+                            ol.breadcrumb
+                                each crumb,index in breadcrumbs
+                                    if (index+1) == breadcrumbs.length
+                                        li.breadcrumb-item.active(aria-current="page")= crumb.name
+                                    else
+                                        li.breadcrumb-item
+                                            a(href=crumb.url)= crumb.name
+                .jumbotron
+                    h1.display-4 About Us
+                    p.lead We are trying to ease your problem in practicing exam by providing it virtually. 
+                    hr.my-4
+                    p You can contact us for further information.
+                        a.pl-2(href="mailto:help@onlinepgdexam.com?Subject=Help" target="_top") Send Mail
+
+            .col-2      

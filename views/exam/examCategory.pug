@@ -1,0 +1,50 @@
+extends ../includes/layout
+
+
+block header
+    include ../includes/nav
+
+block content
+    .container
+        .row.mt-2
+            .col-md-1
+            .col-md-10
+                if breadcrumbs
+                    nav(aria-label="breadcrumb")
+                        ol.breadcrumb
+                            each crumb,index in breadcrumbs
+                                if (index+1) == breadcrumbs.length
+                                    li.breadcrumb-item.active(aria-current="page")= crumb.name
+                                else
+                                    li.breadcrumb-item
+                                        a(href=crumb.url)= crumb.name
+                if errorMessage
+                    .alert.alert-danger.rounded-0.mt-2.text-center(role="alert") #{errorMessage}
+                    //if have any question   
+                if questionTotalNum
+                    .row.mb-2  
+                        .col-12.text-center
+                            h3 Questions Present in 
+                                span.text-info= parentCategory.name
+                        .col-12.my-2.text-center
+                            .alert.alert-success Total Number Of question is #{questionTotalNum}
+                            - parentCategory.slug = parentCategory.slug.substring(5).trim().replace(/\s/g, '%20')
+                            a.btn.btn-primary(href='/exam/topic/'+ parentCategory.slug) Take Exam
+                        if categoryList.length > 0    
+                            .col-12.mt-3.text-center
+                                h3 More Available Category Present in
+                                    span.ml-1.text-info= parentCategory.name      
+                .row.justify-content-center  
+                    if categoryList
+                        each val in categoryList
+                            div( class= categoryList.length < 2 ? 'col-6' : 'col-md-4')
+                                .card.my-1
+                                    img.card-img-top(src=val.imageUrl style="height: 12rem")
+                                    .card-body
+                                        h5.card-title= val.name
+                                        p.card-text!= val.catDescribe
+                                        - val.slug = val.slug.substring(5).trim().replace(/\s/g, '%20')
+                                        a.btn.btn-primary(href='/exam/category/'+ val.slug) Explore
+                
+            .col-md-1
+				

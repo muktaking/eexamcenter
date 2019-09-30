@@ -1,0 +1,72 @@
+.slick-prev:before, .slick-next:before { 
+    color:red !important;
+}
+/* Fix Slider Stacking issue on load */
+body{
+    overflow: visible;
+}
+.bg{
+    position: relative;
+    /* The image used */
+    background-image: url("../img/bg.jpg");
+
+    /* Full height */
+    height: 100%;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.bg-overlay{
+    position: absolute; /* Position the background text */
+    top: 0; /* At the bottom. Use top:0 to append it to the top */
+    background: rgb(0, 0, 0); /* Fallback color */
+    background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
+    color: #f1f1f1; /* Grey text */
+    width: 100%; /* Full width */
+    height: 100%;
+      
+}
+.bg .bg-overlay nav.navbar{
+    background-color: rgba(86,61,124, 0.5) !important;
+}
+nav.navbar{
+    background-color: rgba(86,61,124, 1) !important;
+}
+#additional-info-header button{
+    height: 55px;
+    width: 200px;
+    font-size: 30px;
+    margin: 1rem;
+}
+.dashboard-wrapper .left-content-wrapper{
+    background-color: rgb(128, 144, 240) !important;
+}
+.dashboard-wrapper .middle-content-wrapper div h3 {
+    color: #784193 !important;
+}
+#pre-loader, .center-wrapper{
+    position: relative;
+    top: 0px;
+    left: 0px;
+    height: 100vh;
+    width: 100%;
+    z-index: 999999;
+    background: white;
+}
+/* .spinner-center{
+    position: relative;
+    top: 0px;
+    left: 0px;
+    height: 100vh;
+    width: 100%;
+    z-index: 999999;
+    background: white;
+} */
+.hideAll{
+    display: none;
+}
+.showAll{
+    display: block;
+}

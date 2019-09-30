@@ -1,0 +1,23 @@
+extends ../includes/layout
+
+block header
+    include ../includes/nav
+block content
+    .container
+        .row.justify-content-center
+            .col-6.my-2.border.border-light
+
+                .bg-info.p-2.my-2.text-white.text-center Choose Question Type
+                form.p-2(action="" method="get")
+                    .form-check
+                        input.form-check-input(type="radio" name="qType" value='sba')
+                        label.form-check-label Single Best Answer type
+                    .form-check    
+                        input.form-check-input(type="radio" name="qType" value='matrix')
+                        label.form-check-label Matrix type(True/False Stem type)
+                    .form-check    
+                        input.form-check-input(type="radio" name="qType" value='excel')
+                        label.form-check-label Excel File Upload    
+                        
+                    .d-flex.justify-content-center
+                        button.btn.btn-primary.mt-3(type="submit") Submit

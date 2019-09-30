@@ -1,0 +1,33 @@
+extends ./includes/layout
+block style
+    style.
+        body,html{
+            height: 100%;
+        }     
+block container
+    .bg
+        .bg-overlay
+            block header
+                include ./includes/nav
+            block content
+                .container
+                    if poster
+                        .my-2.px-2
+                            .alert.alert-info= poster
+                    .jumbotron.bg-transparent.text-center.pt-4
+                        h1.display-4 Online Post Graduation Exam Center
+                        p.lead This is an online Exam practice platform for medical students.
+                        hr.bg-white.my-4
+                        h3.display-5 What is the purpose of this platform?
+                        p.lead Practice!! To be ahead in the competitive Post graduation examination. You can practise here anytime and anywhere.
+                        p.lead
+                            a.btn.btn-outline-warning.btn-lg.text-dark(href="/demo" role="button") Start Practice..   
+
+                    #additional-info-wrapper
+                        #additional-info-header.py-2.mb-2.text-center
+                            a(href="/about-us")
+                                button.btn.btn-outline-warning(type="button") About Us
+                            a(href="/help")
+                                button.btn.btn-outline-warning(type="button") Help 
+                    div(style="position:fixed; right:10px; bottom: 10px;")  Share this On
+                        #share             

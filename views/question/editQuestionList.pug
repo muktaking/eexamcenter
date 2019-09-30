@@ -1,0 +1,20 @@
+extends ../includes/layout
+
+block header
+    include ../includes/nav
+block content
+    .row.justify-content-center
+        .col-6.my-2.border.border-light
+            if qType
+                .bg-info.p-2.my-2.text-white.text-center.text-capitalize Choose The Question be edited
+                each val in qType
+                    .bg-success.py-2.text-white.text-center.text-uppercase= val
+                    ul.mt-1.list-group.px-1
+                        each value, index in qTypeQuestionList[val]
+                            li.list-group-item.list-group-item-info.my-1= index+1 + '. ' + value.title
+                                a.ml-4(href="/question/editQuestion/?question=" + value._id)
+                                    i.fa.fa-cog
+                                a.ml-4.text-danger(href="/question/deleteQuestion/?question=" + value._id)
+                                    i.fa.fa-minus
+            else
+                p.lead.bg-danger.text-white.text-center Op's, No question is added into this Category      

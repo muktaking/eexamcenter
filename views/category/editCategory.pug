@@ -1,0 +1,42 @@
+extends ../includes/layout
+
+block header
+    include ../includes/nav
+block content
+    .container
+        .row
+        .row.justify-content-center
+            .col-6.my-2.border.border-light
+                if errorMessage
+                    .alert.alert-danger.rounded-0.mt-2.text-center(role="alert") #{errorMessage}
+
+                form(action="" method="post" enctype="multipart/form-data")
+                    .row
+                        .col
+                            .form-group
+                                label Edit The Category Name
+                                input.form-control(type="text" name="catName" value= cat.name)
+                        .col
+                            .form-group
+                                label Choose The Parent Category
+                                select.form-control(name="parentCat")
+                                    option Top
+                                    if category
+                                        each val in category
+                                            option(value=val._id) #{val.slug}
+                    .row
+                        .col
+                            .form-group
+                                label Edit The Category Order
+                                input.form-control(type="text" name="order" value= cat.order)                        
+                    .row
+                        .col
+                            .form-group    
+                                label.sr-only(for='catDescription') Detail
+                                input.form-control#catDescription.form-control( type="textarea" name="catDescribe" value!= cat.catDescribe)
+                            .custom-file.mb-2
+                                label.custom-file-label(for="image") Upload a Image: 
+                                input.custom-file-input#image(type="file" name="image")                              
+
+                    input(type="hidden" name="_csrf" value = csrfToken )
+                    button.btn.btn-primary(type="submit") Submit

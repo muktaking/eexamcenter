@@ -1,0 +1,90 @@
+extends ../includes/layout
+
+block container
+    include ../includes/nav
+
+    block content
+        .modal.fade#exampleModal(tabindex='-1', role='dialog' aria-labelledby="exampleModalLabel" aria-hidden="true")
+            .modal-dialog(role='document')
+                .modal-content
+                    .modal-header
+                        h5.modal-title#exampleModalLabel Terms &amp; Conditions
+                        button.close(type='button', data-dismiss='modal', aria-label='Close')
+                        span(aria-hidden='true') ×
+                    .modal-body
+                        p We have no any condition. Please, free to explore. 
+                    .modal-footer
+                        button.btn.btn-secondary(type='button', data-dismiss='modal') Close
+
+        .container
+            .row.justify-content-center.mt-3
+                .col-lg-5.col-md-6.col-sm-7.col-8.border.border-top-0.shadow.p-0
+                    if breadcrumbs
+                    nav(aria-label="breadcrumb")
+                        ol.breadcrumb
+                            each crumb,index in breadcrumbs
+                                if (index+1) == breadcrumbs.length
+                                    li.breadcrumb-item.active(aria-current="page")= crumb.name
+                                else
+                                    li.breadcrumb-item
+                                        a(href=crumb.url)= crumb.name
+                    .bg-info.text-white.text-center.lead.rounded-top.p-2 Registration Form
+                    if errorMessage
+                        .alert.alert-danger.rounded-0.mt-2.text-center(role="alert") #{errorMessage}
+                    form.main-form.p-3.m-2.needs-validation(action="" method="POST" novalidate)  
+                        .form-group
+                            label(for="username") Username
+                            .input-group
+                                .input-group-prepend
+                                    .input-group-text
+                                        i.fa.fa-user-ninja
+                                input.form-control#username(type="text", name="username" required)
+                                small.invalid-feedback Please use a valid username
+                        .form-group
+                            label(for="email") Email
+                            .input-group
+                                .input-group-prepend
+                                    .input-group-text
+                                        i.fa.fa-envelope
+                                input.form-control#email(type="email", name="email" required)
+                                small.invalid-feedback Please use a valid email
+                        .form-group
+                            label(for="password") Password
+                            .input-group 
+                                .input-group-prepend
+                                    .input-group-text
+                                        i.fa.fa-lock
+                                input.form-control#password(type="password", name="password")
+                        .form-group
+                            label(for="confirmPassword") Confirm Password
+                            .input-group 
+                                .input-group-prepend
+                                    .input-group-text
+                                        i.fa.fa-lock
+                                input.form-control#confirmPassword(type="password", name="confirmPassword")
+                        hr        
+                        .form-group 
+                            .input-group 
+                                .input-group-prepend
+                                    .input-group-text
+                                        i.fa.fa-transgender  
+                                select.form-control#gender(name="gender")
+                                    option(value="male") Male
+                                    option(value="Female") Female
+                        .custom-control.custom-checkbox
+                            input.custom-control-input#accept-terms(type="checkbox", name="accept-terms")
+                            label.custom-control-label(for="accept-terms") 
+                                a(href='#exampleModal' data-toggle="modal" data-target="#exampleModal") Accept Terms &amp; conditions
+                        input(type="hidden" name="_csrf" value=csrfToken )
+                        button.btn.btn-info.mt-3(type="submit") Submit
+                    //- nav.nav.justify-content-end(style="font-size:25px")
+                    //-     a.nav-link(href="#")
+                    //-         i.fab.fa-facebook
+
+                    //-     a.nav-link(href="#")
+                    //-         i.fab.fa-twitter
+
+                    //-     a.nav-link(href="#")
+                    //-         i.fab.fa-linkedin    
+
+                         

@@ -1,0 +1,19 @@
+//recursive function for expanding child categories
+- let expandCat = (arg) => {
+    - if (arg.child) { // checking whatever parent has child or not
+        - for (let i = 0; i < arg.child.length; i++) {// expand the child
+            .ml-5
+                p.bg-success.px-2.py-1.text-white
+                    i.fa.fa-circle.fa-xs
+                    span.ml-2(style="font-size:18px;")=arg.child[i].name
+                    a.mr-2(href= "/category/editCategory/" + arg.child[i]._id)
+                        i.text-white.ml-3.fa.fa-cog.fa-sm
+                    a(href= "/category/deleteCategory/" + arg.child[i]._id)
+                        i.text-white.ml-3.fa.fa-minus.fa-sm     
+            - if (arg.child[i].child) {// check whatever child has their child or not; if then expand
+                .ml-5 
+                    - expandCat(arg.child[i])
+            - }
+        - }
+    - }
+- }

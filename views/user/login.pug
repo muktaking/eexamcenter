@@ -1,0 +1,68 @@
+extends ../includes/layout
+
+block container
+    include ../includes/nav
+
+    block content
+        #exampleModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
+            .modal-dialog(role='document')
+                .modal-content
+                    .modal-header.justify-content-center 
+                        h5#exampleModalLabel.modal-title
+                            span.text-danger Forget Your Password ! 
+                            span.text-success No Problem
+                        //button.close(type='button', data-dismiss='modal', aria-label='Close')
+                            span(aria-hidden='true') ×
+                    .modal-body
+                        form#passReset(action="/user/reset" method="POST")
+                            .form-group
+                                label(for="emailResets") Email
+                                .input-group
+                                    .input-group-prepend
+                                        .input-group-text
+                                            i.fa.fa-envelope
+                                    input(type="hidden" name="_csrf" value=csrfToken )        
+                                    input#emailReset.form-control(type='email' name="email")
+                    .modal-footer
+                        button.btn.btn-secondary(type='button', data-dismiss='modal') Close
+                        button.btn.btn-primary#resetBtn(type='button') Request for Reset
+                    .alert.alert-danger An email with reset link will be sent to this email address if email address is right . Please check your email or email's spam folder for the password reset link. 
+        .container
+            .row.justify-content-center.mt-3
+                .col-lg-5.col-md-6.col-sm-7.col-8.border.border-top-0.shadow.p-0
+                    if breadcrumbs
+                    nav(aria-label="breadcrumb")
+                        ol.breadcrumb
+                            each crumb,index in breadcrumbs
+                                if (index+1) == breadcrumbs.length
+                                    li.breadcrumb-item.active(aria-current="page")= crumb.name
+                                else
+                                    li.breadcrumb-item
+                                        a(href=crumb.url)= crumb.name
+                    .bg-info.text-white.text-center.lead.rounded-top.p-2 Login Form
+                    if errorMessage
+                        .alert.alert-danger.rounded-0.mt-2.text-center(role="alert") #{errorMessage}
+                    form.main-form.p-3.m-2.needs-validation(action="" method="POST" novalidate)
+                        .form-group
+                            label(for="email") Email
+                            .input-group
+                                .input-group-prepend
+                                    .input-group-text
+                                        i.fa.fa-envelope
+                                input.form-control#email(type="email", name="email" required)
+                                small.invalid-feedback Please enter  your valid Email
+                        .form-group
+                            label(for="password") Password
+                            .input-group 
+                                .input-group-prepend
+                                    .input-group-text
+                                        i.fa.fa-lock
+                                input.form-control#password(type="password", name="password" required)
+                                small.invalid-feedback Please use your Password
+                        input(type="hidden" name="_csrf" value=csrfToken )
+                        button.btn.btn-info.mt-3(type="submit") Submit
+                    
+                    .ml-4.my-2.pb-2
+                        button.btn.btn-primary(type='button', data-toggle='modal', data-target='#exampleModal') Reset Password
+                        span.badge.badge-danger.ml-2.p-1 If you forget it.
+                         

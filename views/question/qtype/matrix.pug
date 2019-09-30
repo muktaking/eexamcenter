@@ -1,0 +1,55 @@
+.container
+        .row
+        .row.justify-content-center
+            .col-6.my-2.border.border-light
+                if errorMessage
+                    .alert.alert-danger.rounded-0.mt-2.text-center(role="alert") #{errorMessage}
+        
+                form(action="" method="post")
+                    input(type="hidden" name="qType" value = qType) 
+                    .form-group
+                        label Add Question's Title
+                        input.form-control(type="text" name="title")
+                    .form-group
+                        label Choose Category
+                        select.form-control(name="category")
+                            if category
+                                each val in category
+                                    option(value=val._id) #{val.slug}
+                    .form-group
+                        label Add The Question
+                        input.form-control(type="text" name="text")   
+                    div 
+                        .row 
+                            .col-8 Add The Question's Stem
+                            .col-4 Choose Answers
+                        .row.align-items-center    
+                            - for(let i=1; i<6 ;i++)
+                                .col-8
+                                    .form-group.row.mt-2
+                                        label.col-1.text-center= i 
+                                        input.form-control.col-11(type="text" name="stems")
+                                .col-4
+                                    .form-check.form-check-inline 
+                                        input.form-check-input(type="radio" name="answer_"+i value='1')
+                                        label.form-check-label True
+                                    .form-check.form-check-inline
+                                        input.form-check-input(type="radio" name="answer_"+i value='0')
+                                        label.form-check-label False                                                
+                    div.mb-2 Add The Question's Feedbacks
+                        button.btn.ml-3.border.border-primary(data-toggle="collapse" type="button" data-target="#feedback" aria-expanded="false" aria-controls="feedback") 
+                            i.fa.fa-plus
+                        .collapse#feedback    
+                            - for(let i=1; i<6 ;i++)
+                                .form-group.row.mt-2
+                                    label.col-1.text-center= i
+                                    input.form-control.col-11(type="text" name="feedbacks")
+                    .form-group
+                        label Add The Question's General Feedbacks
+                        input.form-control(type="text" name="generalFeedbacks")
+                    .form-group
+                        label Add The Question's Tags with separated by commas(e.g. blood,icf)
+                        input.form-control(type="text" name="tags")             
+                    
+                    input(type="hidden" name="_csrf" value = csrfToken )
+                    button.btn.btn-primary(type="submit") Submit

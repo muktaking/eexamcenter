@@ -1,0 +1,21 @@
+extends ../includes/layout
+
+block header
+    include ../includes/nav
+block content
+    .container
+        .row
+        .row.justify-content-center
+            .col-6.my-2.border.border-light
+                if errorMessage
+                    .alert.alert-danger.rounded-0.mt-2.text-center(role="alert") #{errorMessage}
+
+                form(action="" method="post")
+                    .row
+                        .col
+                            .alert.alert-danger Are you Sure to delete this category? It will also shift its child category up. Question under it will also be affected  
+                    .row.justify-content-center
+                        .col
+                            a.mr-3.btn.btn-success.text-white(href='/admin/category') No, I want to Go back
+                            input(type="hidden" name="_csrf" value = csrfToken )
+                            button.btn.btn-danger(type="submit") Yes, I want to delete

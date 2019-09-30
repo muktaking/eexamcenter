@@ -1,0 +1,140 @@
+extends ../includes/layout
+
+block style
+    link(rel="stylesheet" type="text/css" href="/js/slick/slick.css")
+    link(rel="stylesheet" type="text/css" href="/js/slick/slick-theme.css")
+    
+
+block header
+    include ../includes/nav
+
+block content
+                             
+    .container(data-category-id=questionCategoryId data-category-demo=demo).main-wrapper
+        #onSubmitModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='onSubmitModalLabel', aria-hidden='true')
+                .modal-dialog(role='document')
+                    .modal-content
+                        .modal-header
+                            h5#onSubmitModalLabel.modal-title Are You Sure 
+                            button.close(type='button', data-dismiss='modal', aria-label='Close')
+                                span(aria-hidden='true') &times;
+                        .modal-body.text-danger
+                            | Are you sure to Submit Your Answers ?
+                        .modal-footer
+                            button.btn.btn-success(type='button', data-dismiss='modal') No, I want to continue The Exam
+                            button.btn.btn-danger#submitAnswer(type='button' data-dismiss='modal') Yes, I want to submit my Answers  
+        if hasPreviousAttempt
+            // Modal
+            #previousAttemptModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='previousAttemptModalLabel', aria-hidden='true')
+                .modal-dialog(role='document')
+                    .modal-content
+                        .modal-header
+                            h5#previousAttemptModalLabel.modal-title Previous Attempt
+                            button.close(type='button', data-dismiss='modal', aria-label='Close')
+                                span(aria-hidden='true') &times;
+                        .modal-body.text-danger
+                            | You have a previous attempt on this Examination. What you want to do ?
+                        .modal-footer
+                            button.btn.btn-success#startFromLeftOver(type='button', data-dismiss='modal') Want to complete The Exam
+                            button.btn.btn-danger#startFromStart(type='button' data-dismiss='modal') Want to Start from First  
+              
+        else
+            .d-flex.justify-content-center.align-items-center#pre-loader
+                .spinner-border(role='status')
+                    span.sr-only Loading...
+
+        .row.mt-2.justify-content-center#content-container
+            .col-md-2
+                nav.text-center.mb-2 Pages
+                    ul.pagination.flex-column.text-center
+                        if currentPage != 1 && previousPage != 1
+                            li.page-item
+                                a.page-link(href='?questionCategory='+ questionCategoryId +'&page=1') 1-#{ITEMS_PER_PAGE}
+                        if hasPreviousPage
+                            li.page-item
+                                a.page-link(href='?questionCategory='+ questionCategoryId +'&page='+ previousPage) #{(ITEMS_PER_PAGE*(previousPage-1) ) + 1} - #{ITEMS_PER_PAGE*(previousPage)}
+                        li.page-item.active
+                            a.page-link(href='?questionCategory='+ questionCategoryId +'&page='+ currentPage) #{(ITEMS_PER_PAGE*(currentPage-1) )+ 1} - #{(currentPage)*ITEMS_PER_PAGE}
+                        if hasNextPage
+                            li.page-item
+                                a.page-link(href='?questionCategory='+ questionCategoryId +'&page='+ nextPage) #{(ITEMS_PER_PAGE*(nextPage-1) ) + 1} - #{ITEMS_PER_PAGE*(nextPage)}
+                        if (lastPage != currentPage) && (nextPage != lastPage)
+                            li.page-item
+                                a.page-link(href='?questionCategory='+ questionCategoryId +'&page='+ lastPage) #{ITEMS_PER_PAGE*(lastPage-1)} - #{ITEMS_PER_PAGE*lastPage}
+                                                                
+            .col-11.col-md-8
+                if breadcrumbs
+                    nav(aria-label="breadcrumb")
+                        ol.breadcrumb
+                            each crumb,index in breadcrumbs
+                                if (index+1) == breadcrumbs.length
+                                    li.breadcrumb-item.active(aria-current="page")= crumb.name
+                                else
+                                    li.breadcrumb-item
+                                        a(href=crumb.url)= crumb.name
+                .row
+                    .col.text-center
+                        button.btn.btn-info.my-2(type="button" data-toggle="collapse" data-target="#collapseExamRule" aria-expanded="false" aria-controls="collapseExamRule") Know About Exam Marking Rules
+                        .collapse#collapseExamRule
+                            .card.card-body
+                                table.table.table-sm.text-left
+                                    thead.bg-info
+                                        tr.text-center.text-white 
+                                            th(colspan="2") Each Question has 5 stem
+                                    tbody
+                                        tr.table-success
+                                            td(scope="row")  Mark for each correct stem
+                                            td  0.20
+                                        tr.table-danger 
+                                            td Penalty for each incorrect stem
+                                            td -0.04
+                                        tr.table-success 
+                                            td For each correct sba* 
+                                            td 1
+                                        tr.table-danger
+                                            td For each incorrect sba*
+                                            td -0.20 (5 X 0.04)
+                                        
+                                        tr.table-info 
+                                            td(colspan="2") *sba= Single Best Answer  ** if you touch a True/False Type question, any untouched stem will be consider as wrong. Otherwise no negative marking will be counted.
+
+                form(method='post' action="" id="exam-form")
+                    .slick-question.mb-2
+                        each val, index in questionList
+                            div(data-question-id=val._id data-question-type=val.type)
+                                if val.type == 'matrix'
+                                    ul.list-group.mb-4
+                                        li.list-group-item.active= 'Q (' + (index+1 )+ '). ' + val.text
+                                        each value, step in val.stemBody.stems
+                                            li.list-group-item
+                                                .row 
+                                                    .col-8= step+1 + '. ' + value
+                                                    .col-4.answer-container
+                                                        .form-check.form-check-inline 
+                                                            input.form-check-input(type="radio" name="answer_"+val._id +'_'+step value='1' )
+                                                            label.form-check-label True
+                                                        .form-check.form-check-inline
+                                                            input.form-check-input(type="radio" name="answer_"+ val._id+ '_' +step value='0')
+                                                            label.form-check-label False
+                                if val.type == 'sba'
+                                    ul.list-group.mb-4
+                                        li.list-group-item.active= 'Q (' + (index+1 )+ '). ' + val.text
+                                        each value, step in val.stemBody.stems
+                                            li.list-group-item
+                                                .row 
+                                                    .col-8= step+1 + '. ' + value
+                                                    .col-4.answer-container
+                                                        .form-check.form-check-inline 
+                                                            input.form-check-input(type="radio" name="answers_"+val._id value= (step+1) )
+                                                            label.form-check-label Right Answer                          
+
+                    .row.mt-5
+                        .col-12.text-center
+                            input(type="hidden" name="_csrf" value=csrfToken )
+                            input.btn.btn-primary(type="submit" value="End this Exam")
+            .col-md-2                                                                    
+block script
+    script(type="text/javascript" src="/js/slick/slick.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.6.0/qs.min.js")
+    script(src="https://unpkg.com/axios/dist/axios.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/store2/2.7.1/store2.min.js")

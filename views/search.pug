@@ -1,0 +1,36 @@
+extends ./includes/layout
+
+block header
+    include ./includes/nav
+block content
+    .container
+        .row.mt-3
+            .col-2
+            .col-8
+                if breadcrumbs
+                        nav(aria-label="breadcrumb")
+                            ol.breadcrumb
+                                each crumb,index in breadcrumbs
+                                    if (index+1) == breadcrumbs.length
+                                        li.breadcrumb-item.active(aria-current="page")= crumb.name
+                                    else
+                                        li.breadcrumb-item
+                                            a(href=crumb.url)= crumb.name
+                if searchResult   
+                    h2.display-3 Search Results: 
+                    p.lead  #{searchResult.length} results found for '#{searchText}' search Term.
+                    .card
+                        each result, index in searchResult
+                            .card
+                                .card-body
+                                    h4.card-title.text-center #{result.length} content found in #{result[0].category.name} Category:
+                                    each question, dex in result
+                                        ul.list-group.mb-2
+                                            li.list-group-item Question(#{dex+1}). #{question.text}
+                                            - for(let i=0; i<2 ;i++)
+                                                li.list-group-item.pl-3 (#{i+1}). #{question.stemBody.stems[i]}
+                                    a.btn.btn-primary(href='/exam/topic/'+ result[0].category.slug.substring(5).trim().replace(/\s/g, '%20')) Explore more...
+                else
+                    h3.text-center Sorry, their is no matched content
+
+            .col-2      

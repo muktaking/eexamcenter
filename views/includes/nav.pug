@@ -1,0 +1,61 @@
+// a nice navigation bar
+nav.navbar.navbar-dark.navbar-expand-md.sticky-top
+    .container    
+        a.navbar-brand(href="")
+            i.fab.fa-apple
+        button.navbar-toggler(type="button" data-toggle="collapse" data-target="#navbarSupportedContent")
+            span.navbar-toggler-icon
+        .collapse.navbar-collapse#navbarSupportedContent
+            ul.navbar-nav
+                li.nav-item
+                    a.nav-link(href="/" class=(path === '/') ? 'active' : '') Home
+                - if (role === 'admin') 
+                    li.nav-item
+                        a.nav-link(href="/dashboard" class=(path === '/dashboard') ? 'active' : '') Dashboard    
+                    li.nav-item
+                        a.nav-link(href="/category" class=(path === '/category') ? 'active' : '') Category
+                    li.nav-item
+                        a.nav-link(href="/question/addQuestion" class=(path === '/question/addQuestion') ? 'active' : '') Add_Ques
+                    li.nav-item
+                        a.nav-link(href="/question/addQuestion" class=(path === '/question/editQuestion') ? 'active' : '') Edit_Ques   
+                - if (role === 'member')     
+                    li.nav-item
+                        a.nav-link(href="/dashboard" class=(path === '/dashboard') ? 'active' : '') Dashboard
+                li.nav-item
+                    a.nav-link(href="/exam" class=(path === '/exam') ? 'active' : '') Exam
+                li.nav-item
+                    a.nav-link(href="/about-us" class=(path === '/about-us') ? 'active' : '') About us
+                li.nav-item
+                    a.nav-link(href="/help" class=(path === '/help') ? 'active' : '') Help        
+                - if(!role)
+                    li.nav-item
+                        a.nav-link(href="/exam/demo" class=(path === '/exam/demo') ? 'active' : '') Demo
+                
+            ul.navbar-nav.ml-auto
+                li.nav-item 
+                    form.form-inline(action="/search" method="GET")
+                        input.form-control.mr-sm-2.bg-transparent.text-white(name="searchText" type="search" placeholder="Search" aria-label="Search")
+                        button.btn.btn-outline-light.my-2.my-sm-0(type="submit") Search
+            ul.navbar-nav.ml-auto
+                li.nav-item
+                    a.nav-link(href="#")
+                        i.fab.fa-facebook
+                li.nav-item
+                    a.nav-link(href="#")
+                        i.fab.fa-twitter
+                li.nav-item
+                    a.nav-link(href="#")
+                        i.fab.fa-linkedin
+                if !isAuthenticated
+                    li.nav-item
+                        a.nav-link(href="/user/login" class=(path === '/user/login') ? 'active' : '')  Login
+                    li.nav-item
+                        a.nav-link(href="/user/signup" class=(path === '/user/signup') ? 'active' : '') Sign Up    
+
+                if isAuthenticated
+                    li.nav-item
+                        form(action="/user/logout" method="POST")
+                            input(type="hidden" name="_csrf" value=csrfToken )
+                            button.btn.text-white Log Out 
+
+//navigation bar ends

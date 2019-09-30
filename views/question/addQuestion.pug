@@ -1,0 +1,25 @@
+extends ../includes/layout
+
+block header
+    include ../includes/nav
+block content
+    if qType == 'matrix'
+        include qtype/matrix
+    if qType == 'sba'
+        include qtype/sba    
+    if qType == 'excel'
+        .row.justify-content-center
+            .col-6.my-2.border.border-light
+                .bg-info.p-2.my-2.text-white.text-center Choose an Excel File
+                form.p-2(action="/question/addQuestion/upload" method="post" enctype="multipart/form-data")
+                    .form-group
+                        label Choose Category
+                        select.form-control(name="category")
+                            if category
+                                each val in category
+                                    option(value=val._id) #{val.slug}
+                    .custom-file
+                        input.custom-file-input#customFile( name="excel" type="file")
+                        label.custom-file-label(for="customFile") Choose file
+                    input(type="hidden" name="_csrf" value = csrfToken )    
+                    button.btn.btn-primary.mt-3(type="submit") Submit   
