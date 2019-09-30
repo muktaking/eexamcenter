@@ -32,21 +32,21 @@ SENDER_EMAIL= no-replay@mydomain.com, support@mydomain.com etc.
 Mongodb section is self-explanatory.
 
     #NODE_ENV=production
-    #Email Related*
-     *#personal Email*server
+    #Email Related
+     #personal Email server
     #EMAIL_HOST=
     #EMAIL_PORT=
     #true for 465, false for other ports
     #IS_SECURE=
     #EMAIL_USER=
     #EMAIL_PASSWORD=
-    *#when using sendgrid api*
+    #when using sendgrid api
     #SENDGRID_KEY=
-    *#for both*
+    #for both
     #SENDER_EMAIL=
     #DOMAIN=
     
-    *#Mongo data base related*
+    Mongo data base related
     #APP_MONGO_USER=
     #APP_MONGO_PASS=
     #MONGO_HOSTNAME=
@@ -64,6 +64,7 @@ C. FROENTEND: pug, bootstrap4
 public and assets/images are publicly accessible folder.
 assets/images: store images
 
+*please, create folder 'assets > images' & 'assets > fileData' under assets folder(you should create it yourself)*
 **Problems**
 This site's index, about-us, and help pages are hard coded. 
 certain variables(that will affect SEO, Marking system) are also hard coded. To change, you have to chage manually(sorry for that)
