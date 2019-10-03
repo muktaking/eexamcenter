@@ -166,6 +166,7 @@ module.exports.examGet = async(req,res,next)=>{
     if(! categoryList.length > 0){
         req.flash('error', 'No Category yet created');
         return res.status(200).render('exam/examCategory',{
+            path: '/exam',
             errorMessage: msg,
             breadcrumbs
         });
