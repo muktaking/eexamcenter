@@ -1,6 +1,6 @@
 const express = require('express');
 const {check,body,query} = require('express-validator/check');
-
+const _ = require('lodash');
 const router = express.Router();
 //importing controllers
 const signupController = require('../user/signupController');
@@ -28,7 +28,8 @@ router.post('/signup',[
         .custom((value,{req})=>{
             return User.find({email: value})
                 .then(userDoc=>{
-                    if(userDoc){
+                    console.log(userDoc);
+                    if(!_.isEmpty(userDoc)){
                         return Promise.reject('The Email is already exists');
                     }
                 })
