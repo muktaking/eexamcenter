@@ -2,7 +2,7 @@
 
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
-
+const sendgridTransporter = require('nodemailer-sendgrid-transport');
 //importing models
 const User = require('./userModel');
 
@@ -28,7 +28,7 @@ module.exports.postReset = (req,res,next)=>{
             .then(saved=>{
                 res.redirect('/');
                 // create reusable transporter object using the default SMTP transport
-                let transporter = nodemailer.createTransport({
+                let transporter = nodemailer.createTransport(
                     /* by personal mail use
                     host: process.env.EMAIL_HOST,
                     port: process.env.EMAIL_PORT,
@@ -41,11 +41,13 @@ module.exports.postReset = (req,res,next)=>{
                         rejectUnauthorized: false
                     }
                     */
-                   auth: {
-                    //api_user: process.env.SENDGRID_USER,
-                    api_key: process.env.SENDGRID_KEY
-                }
-                });
+                   sendgridTransporter({
+                        auth: {
+                            //api_user: process.env.SENDGRID_USER,
+                            api_key: process.env.SENDGRID_KEY
+                        }
+                   })
+                );
 
                 // setup email data with unicode symbols
                 let mailOptions = {

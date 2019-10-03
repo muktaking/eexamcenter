@@ -1,7 +1,7 @@
 const  mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const nodemailer = require('nodemailer');
-const sendgridTransporter = require('nodemailer-sendgrid-transport')
+const sendgridTransporter = require('nodemailer-sendgrid-transport');
 const _ = require('lodash');
 const {validationResult} = require('express-validator/check'); // validating signup, login data
 
@@ -54,7 +54,7 @@ const postSignup= (req,res,next)=>{
             const user = new User({username,email,password:hash,gender,role});
 
             // create reusable transporter object using the default SMTP transport
-            let transporter = nodemailer.createTransport({
+            let transporter = nodemailer.createTransport(
                 /* **for personal mail server **
                 host: process.env.EMAIL_HOST,
                 port: process.env.EMAIL_PORT,
@@ -68,11 +68,12 @@ const postSignup= (req,res,next)=>{
                 }
                 */  
                // ** by sendgrid service setting**
-               auth: {
-                   //api_user: process.env.SENDGRID_USER,
-                   api_key: process.env.SENDGRID_KEY
-               }
-            });
+               sendgridTransporter({
+                   auth: {
+                    //api_user: process.env.SENDGRID_USER,
+                    api_key: process.env.SENDGRID_KEY
+                    }})
+            );
 
             // setup email data with unicode symbols
             let mailOptions = {
