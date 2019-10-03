@@ -8,7 +8,7 @@ body{
 .bg{
     position: relative;
     /* The image used */
-    background-image: url("../img/bg.jpg");
+    background-image: url("../img/bg.low.jpg");
 
     /* Full height */
     height: 100%;
