@@ -3,6 +3,22 @@ block style
     style.
         body,html{
             height: 100%;
+        }
+        @media (max-width: 991.98px) {
+            body{
+                background-color: #8874b1;
+                color: white;
+            }
+            body .bg {
+                background-image: none;
+            }
+            .bg-overlay{
+                background-color: #8874b1;
+                color: white;
+            }
+            #share-wrapper{
+                width: 40px;
+            }
         }     
 block container
     .bg
@@ -29,5 +45,5 @@ block container
                                 button.btn.btn-outline-warning(type="button") About Us
                             a(href="/help")
                                 button.btn.btn-outline-warning(type="button") Help 
-                    div(style="position:fixed; right:10px; bottom: 10px;")  Share this On
-                        #share             
+                    div#share-wrapper(style="position:fixed; right:10px; bottom: 10px") share this 
+                        #share           
