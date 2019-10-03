@@ -38,11 +38,13 @@ const postSignup= (req,res,next)=>{
     const gender = req.body.gender;
     const errors = validationResult(req);
     const role = 'member';
+    const breadcrumbs =  req.breadcrumbs();
     
     if (!errors.isEmpty()){
         console.log(errors.array());
         return res.status(422).render('user/signup',{
             path: '/user/signup',
+            breadcrumbs,
             errorMessage: errors.array()[0].msg,
             oldInput: {email, password, retypePassword: req.body.retypePassword},
             invalidErrors: errors.array()

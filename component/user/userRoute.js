@@ -32,9 +32,6 @@ router.post('/signup',[
                         return Promise.reject('The Email is already exists');
                     }
                 })
-                .catch(err=>{
-                    console.log(err);
-                })
         }),
     body('password','Please enter valid password. Password should be at least 5 alpha-numeric characters')
         .isLength({min: 5})
