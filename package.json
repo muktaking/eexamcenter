@@ -34,7 +34,7 @@
     "pug": "^2.0.3",
     "store": "^2.0.12",
     "winston": "^3.2.1",
-    "xlsx": "^0.14.1"
+    "xlsx": "^0.17.0"
   },
   "devDependencies": {
     "nodemon": "^1.18.10"
